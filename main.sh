@@ -3,7 +3,8 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 declare -A SCRIPTS=(
-    ["Hello-World!"]=$SCRIPT_DIR/scripts/hello_world.sh)
+    ["Hello-World!"]=$SCRIPT_DIR/scripts/hello_world.sh,
+    ["Httpd"]=$SCRIPT_DIR/scripts/httpd.sh)
 SCRIPTS_ARR_LENGHT=${#SCRIPTS[@]}
 
 function fn_update_deps() {
