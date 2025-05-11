@@ -4,10 +4,17 @@ HTTPD_CONFIG=$CONFIGS/conf/httpd.conf
 
 function fn_main() {
     # installing httpd and mod_ssl
-    dnf install -y httpd mod_ssl mod_php php
+    dnf install -y httpd mod_ssl php
 
     # starting httpd.service
     systemctl enable httpd --now
+    
+    # Firewalld...
+
+    # Setup hostname
+    HOSTNAME="Localhost"
+    read -p "Update l'hostname (eg: localhost): " HOSTNAME
+    hostnamectl set-hostname "$HOSTNAME"
 
     # Setup self-signed ssl
     openssl genrsa -out "$HOSTNAME" 2048
@@ -19,13 +26,6 @@ function fn_main() {
     
     # SELinux
     restorecon -RvF /etc/pki
-
-    # Firewalld...
-
-    # Setup hostname
-    HOSTNAME="Localhost"
-    read -p "Update l'hostname (eg: localhost): " HOSTNAME
-    hostnamectl set-hostname "$HOSTNAME"
 
     # Removing default page
     rm -f $CONFIGS/conf.d/welcome.conf
@@ -50,6 +50,8 @@ function fn_main() {
     semanage fcontext -a -t httpd_sys_rw_content_t "/srv/httpd(/.*)?"
 
     restorecon -R /srv/httpd
+
+    systemctl restart httpd --now
 
 }
 
