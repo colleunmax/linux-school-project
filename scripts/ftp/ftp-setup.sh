@@ -9,6 +9,30 @@ fi
 # Lire le nom du client à créer
 read -p "Nom du client à créer : " CLIENT
 
+# Vérifier si l'utilisateur existe déjà
+if id "$CLIENT" &>/dev/null; then
+    echo "L'utilisateur $CLIENT existe déjà."
+    read -p "Souhaitez-vous continuer avec cet utilisateur (o/n) ? " choice
+    case "$choice" in
+        y|Y )
+            echo "Réutilisation de l'utilisateur $CLIENT"
+            ;;
+        n|N )
+            echo "Annulation de la création de l'utilisateur."
+            exit 0
+            ;;
+        * )
+            echo "Réponse invalide. Annulation de la création de l'utilisateur."
+            exit 1
+            ;;
+    esac
+else
+    # Création de l'utilisateur
+    echo "Création de l'utilisateur $CLIENT..."
+    adduser "$CLIENT"
+    passwd "$CLIENT"
+fi
+
 # Installer vsftpd s’il n’est pas déjà installé
 dnf install -y vsftpd
 
@@ -24,9 +48,8 @@ sed -i '/^user_sub_token=/d' /etc/vsftpd/vsftpd.conf
 sed -i '/^local_root=/d' /etc/vsftpd/vsftpd.conf
 sed -i '/^allow_writeable_chroot=/d' /etc/vsftpd/vsftpd.conf
 
-# Ajouter les bonnes lignes
+# Ajouter les bonnes lignes dans le fichier de configuration
 echo "Configuration de vsftpd..."
-
 echo "anonymous_enable=NO" >> /etc/vsftpd/vsftpd.conf
 echo "local_enable=YES" >> /etc/vsftpd/vsftpd.conf
 echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
@@ -39,11 +62,7 @@ echo "allow_writeable_chroot=YES" >> /etc/vsftpd/vsftpd.conf
 systemctl enable vsftpd
 systemctl restart vsftpd
 
-# Création de l’utilisateur
-adduser "$CLIENT"
-passwd "$CLIENT"
-
-# Création de son dossier web
+# Création du dossier web de l'utilisateur
 mkdir -p /var/www/"$CLIENT"
 chown "$CLIENT:$CLIENT" /var/www/"$CLIENT"
 
