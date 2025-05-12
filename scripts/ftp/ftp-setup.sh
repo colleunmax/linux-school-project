@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# S'assurer que le script est exécuté en tant que root
+if [ "$EUID" -ne 0 ]; then
+  echo "Veuillez exécuter ce script en tant que root."
+  exit 1
+fi
+
+# Lire le nom du client à créer
+read -p "Nom du client à créer : " CLIENT
+
+# Installer vsftpd s’il n’est pas déjà installé
+dnf install -y vsftpd
+
+# Sauvegarder le fichier de configuration
+cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak
+
+# Nettoyer les anciennes lignes si déjà présentes (optionnel mais recommandé)
+sed -i '/^anonymous_enable=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^local_enable=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^write_enable=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^chroot_local_user=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^user_sub_token=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^local_root=/d' /etc/vsftpd/vsftpd.conf
+sed -i '/^allow_writeable_chroot=/d' /etc/vsftpd/vsftpd.conf
+
+# Ajouter les bonnes lignes
+echo "Configuration de vsftpd..."
+
+echo "anonymous_enable=NO" >> /etc/vsftpd/vsftpd.conf
+echo "local_enable=YES" >> /etc/vsftpd/vsftpd.conf
+echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
+echo "chroot_local_user=YES" >> /etc/vsftpd/vsftpd.conf
+echo "user_sub_token=\$USER" >> /etc/vsftpd/vsftpd.conf
+echo "local_root=/var/www/\$USER" >> /etc/vsftpd/vsftpd.conf
+echo "allow_writeable_chroot=YES" >> /etc/vsftpd/vsftpd.conf
+
+# Activer et démarrer vsftpd
+systemctl enable vsftpd
+systemctl restart vsftpd
+
+# Création de l’utilisateur
+adduser "$CLIENT"
+passwd "$CLIENT"
+
+# Création de son dossier web
+mkdir -p /var/www/"$CLIENT"
+chown "$CLIENT:$CLIENT" /var/www/"$CLIENT"
+
+echo "Utilisateur $CLIENT configuré avec accès FTP sur /var/www/$CLIENT"
