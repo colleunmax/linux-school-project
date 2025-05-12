@@ -66,4 +66,28 @@ systemctl restart vsftpd
 mkdir -p /var/www/"$CLIENT"
 chown "$CLIENT:$CLIENT" /var/www/"$CLIENT"
 
-echo "Utilisateur $CLIENT configuré avec accès FTP sur /var/www/$CLIENT"
+# Installer Samba si nécessaire
+dnf install -y samba
+
+# Créer un utilisateur Samba
+smbpasswd -a "$CLIENT"
+
+# Ajouter un partage Samba pour cet utilisateur
+echo "Ajout du partage Samba pour $CLIENT..."
+
+# Ouvrir le fichier de configuration de Samba et ajouter le partage
+echo "[${CLIENT}]" >> /etc/samba/smb.conf
+echo "   path = /var/www/${CLIENT}" >> /etc/samba/smb.conf
+echo "   browseable = yes" >> /etc/samba/smb.conf
+echo "   writable = yes" >> /etc/samba/smb.conf
+echo "   valid users = ${CLIENT}" >> /etc/samba/smb.conf
+echo "   create mask = 0775" >> /etc/samba/smb.conf
+echo "   directory mask = 0775" >> /etc/samba/smb.conf
+
+# Redémarrer Samba
+systemctl restart smb
+
+
+
+# Confirmation
+echo "Utilisateur $CLIENT configuré avec accès FTP et Samba sur /var/www/$CLIENT"
