@@ -20,6 +20,7 @@ function fn_main() {
     rm -fr /home
     mkdir /home
     umount /mnt/home_temp
+    rmdir /mnt/home_temp
     mount /dev/vg_srv/lg_home /home
 
     echo "/dev/vg_srv/lg_services /mnt/services ext4 defaults 0 2" | tee -a /etc/fstab
