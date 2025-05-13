@@ -55,7 +55,7 @@ echo "local_enable=YES" >> /etc/vsftpd/vsftpd.conf
 echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
 echo "chroot_local_user=YES" >> /etc/vsftpd/vsftpd.conf
 echo "user_sub_token=\$USER" >> /etc/vsftpd/vsftpd.conf
-echo "local_root=/var/www/\$USER" >> /etc/vsftpd/vsftpd.conf
+echo "local_root=/home/\$USER" >> /etc/vsftpd/vsftpd.conf
 echo "allow_writeable_chroot=YES" >> /etc/vsftpd/vsftpd.conf
 
 # Activer et démarrer vsftpd
@@ -63,8 +63,8 @@ systemctl enable vsftpd
 systemctl restart vsftpd
 
 # Création du dossier web de l'utilisateur
-mkdir -p /var/www/"$CLIENT"
-chown "$CLIENT:$CLIENT" /var/www/"$CLIENT"
+mkdir -p /home/"$CLIENT"
+chown "$CLIENT:$CLIENT" /home/"$CLIENT"
 
 # Installer Samba si nécessaire
 dnf install -y samba
@@ -77,7 +77,7 @@ echo "Ajout du partage Samba pour $CLIENT..."
 
 # Ouvrir le fichier de configuration de Samba et ajouter le partage
 echo "[${CLIENT}]" >> /etc/samba/smb.conf
-echo "   path = /var/www/${CLIENT}" >> /etc/samba/smb.conf
+echo "   path = /home/${CLIENT}" >> /etc/samba/smb.conf
 echo "   browseable = yes" >> /etc/samba/smb.conf
 echo "   writable = yes" >> /etc/samba/smb.conf
 echo "   valid users = ${CLIENT}" >> /etc/samba/smb.conf
