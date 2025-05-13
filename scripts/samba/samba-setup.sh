@@ -13,7 +13,7 @@ cat << 'EOF' > /etc/samba/smb.conf
 #
 # Note:
 # SMB1 is disabled by default. This means clients without support for SMB2 or
-# SMB3 are no longer able to connect to smbd (by default).
+# SMB3 are no longer able to connect to smb (by default).
 
 [global]
         workgroup = SAMBA
@@ -53,21 +53,23 @@ cat << 'EOF' > /etc/samba/smb.conf
         directory mask = 0775
 
 [partage]
-   path = /srv/partage
-   browsable = yes
-   guest ok = yes
-   read only = no
-   force user = nobody
+        path = /srv/partage
+        browseable = yes
+        guest ok = yes
+        read only = no
+        force user = nobody
+
 EOF
 # 3. Création du dossier à partager
-mkdir -p /srv/partage
-chown nobody:nobody /srv/partage
-chmod 0775 /srv/partage
+sudo mkdir -p /srv/partage
+sudo chown nobody:nobody /srv/partage
+sudo chmod 0775 /srv/partage
 
 # 4. Redémarrer le service Samba
-systemctl restart smbd
+sudo systemctl restart smb
+sudo systemctl enable smb
+
 
 # 5. Vérification de la syntaxe
 testparm
 
-sudo ufw allow samba
