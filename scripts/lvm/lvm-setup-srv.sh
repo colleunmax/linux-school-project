@@ -16,7 +16,7 @@ function fn_main() {
     mount /dev/vg_srv/lg_services /mnt/services
     mount /dev/vg_srv/lg_home /mnt/home_temp
 
-    rsync -aXS /home /mnt/home_temp
+    rsync -aXS /home/ /mnt/home_temp/
     rm -fr /home
     mkdir /home
     umount /mnt/home_temp
@@ -25,7 +25,7 @@ function fn_main() {
 
     echo "/dev/vg_srv/lg_services /mnt/services ext4 defaults 0 2" | tee -a /etc/fstab
     echo "/dev/vg_srv/lg_home /home ext4 defaults 0 2" | tee -a /etc/fstab
-}    
+}
 
 
 if [ $EUID -eq "0" ]; then

@@ -17,7 +17,7 @@ function fn_main() {
     mount /dev/vg_backup/lg_home_backup /mnt/home_backup
 
     echo "/dev/vg_backup/lg_srv_backup /mnt/services ext4 defaults 0 2" | tee -a /etc/fstab
-    echo "/dev/vg_backup/lg_home_backup /home ext4 defaults 0 2" | tee -a /etc/fstab
+    echo "/dev/vg_backup/lg_home_backup /mnt/home_backup ext4 defaults 0 2" | tee -a /etc/fstab
 }    
 
 
