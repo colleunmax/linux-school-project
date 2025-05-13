@@ -90,4 +90,4 @@ systemctl restart smb
 
 
 # Confirmation
-echo "Utilisateur $CLIENT configuré avec accès FTP et Samba sur /var/www/$CLIENT"
+echo "Utilisateur $CLIENT configuré avec accès FTP et Samba sur /home/$CLIENT"
