@@ -81,8 +81,8 @@ echo "   path = /home/${CLIENT}" >> /etc/samba/smb.conf
 echo "   browseable = yes" >> /etc/samba/smb.conf
 echo "   writable = yes" >> /etc/samba/smb.conf
 echo "   valid users = ${CLIENT}" >> /etc/samba/smb.conf
-echo "   create mask = 0775" >> /etc/samba/smb.conf
-echo "   directory mask = 0775" >> /etc/samba/smb.conf
+echo "   create mask = 771" >> /etc/samba/smb.conf
+echo "   directory mask = 771" >> /etc/samba/smb.conf
 
 # Redémarrer Samba
 systemctl restart smb
