@@ -19,7 +19,7 @@ function fn_main() {
 
     # installation of webserv dependencies
     setup_epel
-    dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel php-mbstring php-xml mariadb105-server install python2-certbot-apache.noarch
+    dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel php-mbstring php-xml mariadb105-server
     usermod -aG apache ec2-user
 
     # start services
