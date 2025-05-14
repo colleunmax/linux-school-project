@@ -11,8 +11,10 @@ function fn_main() {
     sed -i "s/127\.0\.0\.1;/127.0.0.1; $IP;/" /etc/named.conf
     sed -i "s/localhost;[[:space:]]*/localhost; $SUBNET;/" /etc/named.conf
     sed -i "/^\s*options\s*{/a \      allow-recursion { localhost; ${SUBNET}; };" /etc/named.conf
+    sed -i '/zone "\." IN {/,/};/d' /etc/named.conf
     echo 'include "/mnt/services/named/zone.conf";' | sudo tee -a /etc/named.conf > /dev/null
 
+    rsync -aXS /var/named /mnt/services/named
     mkdir -p /mnt/services/named
     cat << EOF > /mnt/services/named/website.lan.zone
 \$TTL 1D
