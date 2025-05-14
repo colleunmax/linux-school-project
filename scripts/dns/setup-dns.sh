@@ -14,7 +14,7 @@ function fn_main() {
     sed -i '/zone "\." IN {/,/};/d' /etc/named.conf
     echo 'include "/mnt/services/named/zone.conf";' | sudo tee -a /etc/named.conf > /dev/null
 
-    rsync -aXS /var/named /mnt/services/named
+    rsync -aXS /var/named/ /mnt/services/named.
     mkdir -p /mnt/services/named
     cat << EOF > /mnt/services/named/website.lan.zone
 \$TTL 1D
