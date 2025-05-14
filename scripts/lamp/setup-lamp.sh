@@ -19,7 +19,7 @@ function fn_main() {
 
     # installation of webserv dependencies
     setup_epel
-    dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel php-mbstring php-xml mariadb105-server install python2-certbot-apache.noarch
+    dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel php-mbstring php-xml mariadb105-server
     usermod -aG apache ec2-user
 
     # start services
@@ -44,7 +44,7 @@ function fn_main() {
     # setup PhpMyAdmin
     mkdir /mnt/services/www/html/phpMyAdmin
     wget $LTS_PHP_MY_ADMIN /tmp
-    tar -xvzf /tmp/phpMyAdmin-latest-all-languages.tar.gz -C /mnt/services/www/html/phpMyAdmin --strip-components 1 
+    tar -xvzf "/tmp/$LTS_PHP_MY_ADMIN_FILE" -C /mnt/services/www/html/phpMyAdmin --strip-components 1 
 }    
 
 if [ $EUID -eq "0" ]; then
