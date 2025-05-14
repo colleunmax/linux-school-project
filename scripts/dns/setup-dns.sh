@@ -16,20 +16,20 @@ function fn_main() {
 
     mkdir -p /mnt/services/named
     cat << EOF > /mnt/services/named/website.lan.zone
-    \$TTL 1D
-    @   IN  SOA website.lan. admin.website.lan. (
-            $(date +%Y%m%d%H) ; serial
-            1D         ; refresh
-            1H         ; retry
-            1W         ; expire
-            3H )       ; minimum
+\$TTL 1D
+@   IN  SOA website.lan. admin.website.lan. (
+        $(date +%Y%m%d%H) ; serial
+        1D         ; refresh
+        1H         ; retry
+        1W         ; expire
+        3H )       ; minimum
 
-        IN  NS  ns1.website.lan.
-    ns1 IN  A   $IP
+    IN  NS  ns1.website.lan.
+ns1 IN  A   $IP
 
-    @   IN  A   $IP
-    www IN  A   $IP
-    EOF
+@   IN  A   $IP
+www IN  A   $IP
+EOF
 
 }    
 
