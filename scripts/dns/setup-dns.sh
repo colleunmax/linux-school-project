@@ -36,6 +36,7 @@ zone "website.lan" IN {
     type master;
     file "/mnt/services/named/website.lan.zone";
 };
+EOF
 
 }    
 
