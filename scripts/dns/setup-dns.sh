@@ -5,7 +5,7 @@ IP=$1 # x.x.x.x
 SUBNET=$2 # y.y.y.y/24
 
 function fn_main() {
-    dnf install bind bind-utils
+    dnf install -y bind bind-utils
     systemctl enable named --now
     sed -i 's|/var/named|/mnt/services/named|g' /etc/named.conf
     sed -i "s/127\.0\.0\.1;/127.0.0.1; $IP;/" /etc/named.conf
@@ -15,7 +15,7 @@ function fn_main() {
     echo 'include "/mnt/services/named/zone.conf";' | sudo tee -a /etc/named.conf > /dev/null
 
     mkdir -p /mnt/services/named
-    cat > ""/mnt/services/named/website.lan.zone" <<EOF
+    cat << EOF > /mnt/services/named/website.lan.zone
     \$TTL 1D
     @   IN  SOA website.lan. admin.website.lan. (
             $(date +%Y%m%d%H) ; serial
