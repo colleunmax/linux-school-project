@@ -9,9 +9,8 @@ function fn_main() {
     systemctl enable named --now
     sed -i 's|/var/named|/mnt/services/named|g' /etc/named.conf
     sed -i "s/127\.0\.0\.1;/127.0.0.1; $IP;/" /etc/named.conf
-    sed -i "s/127\.0\.0\.1;/127.0.0.1; $IP;/" /etc/named.conf
-    sed -i "s/localhost;/localhost; $SUBNET;/" /etc/named.conf
-    sed -i "/^\s*options\s*{/a \    allow-recursion { localhost; ${SUBNET}; };" /etc/named.conf
+    sed -i "s/localhost;[[:space:]]*/localhost; $SUBNET;/" /etc/named.conf
+    sed -i "/^\s*options\s*{/a \      allow-recursion { localhost; ${SUBNET}; };" /etc/named.conf
     echo 'include "/mnt/services/named/zone.conf";' | sudo tee -a /etc/named.conf > /dev/null
 
     mkdir -p /mnt/services/named
