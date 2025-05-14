@@ -3,8 +3,8 @@
 # Demander à l'utilisateur l'IP du serveur NFS
 read -p "Entrez l'adresse IP du serveur NFS : " NFS_SERVER_IP
 
-# Demander à l'utilisateur le répertoire à monter
-read -p "Entrez le répertoire à partager sur le serveur NFS (ex : /srv/partage) : " NFS_SHARE
+# Répertoire à partager sur le serveur NFS défini en dur
+NFS_SHARE="/mnt/services/partage"
 
 # Demander à l'utilisateur le répertoire de montage local
 read -p "Entrez le répertoire de montage local (ex : /mnt/partage) : " MOUNT_DIR

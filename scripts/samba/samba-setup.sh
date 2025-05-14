@@ -53,7 +53,7 @@ cat << 'EOF' > /etc/samba/smb.conf
         directory mask = 0775
 
 [partage]
-        path = /srv/partage
+        path = /mnt/services/partage
         browseable = yes
         guest ok = yes
         read only = no
@@ -61,9 +61,9 @@ cat << 'EOF' > /etc/samba/smb.conf
 
 EOF
 # 3. Création du dossier à partager
-sudo mkdir -p /srv/partage
-sudo chown nobody:nobody /srv/partage
-sudo chmod 0775 /srv/partage
+sudo mkdir -p /mnt/services/partage
+sudo chown nobody:nobody /mnt/services/partage
+sudo chmod 0775 /mnt/services/partage
 
 # 4. Redémarrer le service Samba
 sudo systemctl restart smb
