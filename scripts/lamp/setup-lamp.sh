@@ -42,7 +42,7 @@ function fn_main() {
     sed -i 's|/var/www|/mnt/services/www|g' $HTTPD_CONFIG
 
     # setup PhpMyAdmin
-    mkdir /mnt/services/www/htmlphpMyAdmin
+    mkdir /mnt/services/www/html/phpMyAdmin
     wget $LTS_PHP_MY_ADMIN /tmp
     tar -xvzf /tmp/phpMyAdmin-latest-all-languages.tar.gz -C /mnt/services/www/html/phpMyAdmin --strip-components 1 
 }    
