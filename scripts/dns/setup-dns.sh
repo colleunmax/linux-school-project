@@ -31,6 +31,12 @@ ns1 IN  A   $IP
 www IN  A   $IP
 EOF
 
+  cat << EOF > /mnt/services/named/zone.conf
+zone "website.lan" IN {
+    type master;
+    file "/mnt/services/named/website.lan.zone";
+};
+
 }    
 
 if [ $EUID -eq "0" ]; then
