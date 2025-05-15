@@ -15,7 +15,7 @@ function fn_main() {
     rsync -aXS /var/named/ /mnt/services/named/
     mkdir -p /mnt/services/named
     cat << EOF > /mnt/services/named/website.lan.zone
-\$$TTL 1D
+\$TTL 1D
 
 @ IN SOA website.lan. website.lan. (
         2025051501 ; Serial
