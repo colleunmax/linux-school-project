@@ -25,9 +25,9 @@ function fn_main() {
         86400 )    ; Minimum TTL
 
     IN  NS  website.lan.
-    IN  A   10.42.0.104
+    IN  A   $IP
 
-@   IN  A     10.42.0.104
+@   IN  A     $IP
 EOF
 
   cat << EOF > /mnt/services/named/zone.conf
