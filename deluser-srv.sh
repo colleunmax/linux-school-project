@@ -6,6 +6,8 @@ function fn_main() {
 
     source ./scripts/dns/remove-user-dns.sh $USERNAME
     source ./scripts/ftp/del-user.sh $USERNAME
+    source ./scripts/lamp/remove-user-httpd.sh $USERNAME
+    source ./scripts/lamp/remove-user-db.sh $USERNAME
 }
 
 if [ $EUID -eq "0" ]; then
