@@ -34,4 +34,6 @@ chmod o+rx "/home/$username/public_html"
 find "/home/$username/public_html" -type f -exec chmod o+r {} \;
 find "/home/$username/public_html" -type d -exec chmod o+rx {} \;
 
+systemctl restart httpd
+
 echo "✅ VirtualHost for $username.website.lan added to $config_file"

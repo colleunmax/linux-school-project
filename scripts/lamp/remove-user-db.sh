@@ -12,4 +12,6 @@ DROP USER IF EXISTS '$username'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
+systemctl restart httpd
+
 echo "🗑️ User '$username' and database '$username' deleted."
