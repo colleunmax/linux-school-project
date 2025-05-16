@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Demander le nom de l'utilisateur à supprimer
-read -p "Nom de l'utilisateur à supprimer : " CLIENT
+CLIENT=$1
 
 # Vérifier si l'utilisateur existe
 if ! id "$CLIENT" &>/dev/null; then

@@ -1,3 +1,4 @@
+#!/bin/bash
 IP=$(ip -4 addr show ens5 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
 
 fn_main() {

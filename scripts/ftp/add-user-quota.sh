@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Demander à l'utilisateur le nom du client
-read -p "Nom du client à créer : " CLIENT
+CLIENT=$1
 
 # Vérifier si l'utilisateur existe déjà
 if id "$CLIENT" &>/dev/null; then
