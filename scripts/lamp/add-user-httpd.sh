@@ -1,7 +1,7 @@
 #!/bin/bash
 
 username="$1"
-config_file="/etc/httpd.conf"
+config_file="/etc/httpd/conf/httpd.conf"
 
 if [ -z "$username" ]; then
   echo "Usage: $0 <username>"
