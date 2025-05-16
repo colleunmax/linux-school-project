@@ -8,7 +8,7 @@ if [ -z "$username" ]; then
   exit 1
 fi
 
-cat <<EOF | sudo tee -a "$config_file" > /dev/null
+cat <<EOF | sudo tee -a "$config_file" >> /dev/null
 
 <VirtualHost *:80>
     ServerName $username.website.lan
